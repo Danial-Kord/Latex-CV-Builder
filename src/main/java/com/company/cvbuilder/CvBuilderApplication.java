@@ -1,6 +1,7 @@
 package com.company.cvbuilder;
 
 import Files.FileManager;
+import Latex.AcademicCVType1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CvBuilderApplication {
 
     public static void main(String[] args) {
-        FileManager.addData(FileManager.creatFile(),"{name}");
+        AcademicCVType1 academicCVType1 = new AcademicCVType1();
+        academicCVType1.generatePdfCV(null);
+//        FileManager.addData(FileManager.creatFile(),"{name}");
         //SpringApplication.run(CvBuilderApplication.class, args);
     }
 
