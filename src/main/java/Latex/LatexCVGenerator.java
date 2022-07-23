@@ -3,6 +3,7 @@ package Latex;
 import Files.FileManager;
 import Requests.Education;
 import Requests.JsonReq;
+import Requests.WorkExperience;
 
 import java.io.File;
 
@@ -15,6 +16,7 @@ public abstract class LatexCVGenerator {
 
 
     protected abstract void addEducation(Education[] educations);
+    protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
     protected abstract void addExperience(String data);
     protected abstract void addSummary(String data);

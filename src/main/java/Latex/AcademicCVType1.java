@@ -3,6 +3,7 @@ package Latex;
 import Files.FileManager;
 import Requests.Education;
 import Requests.JsonReq;
+import Requests.WorkExperience;
 
 import java.io.File;
 
@@ -47,7 +48,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             {\textbf{CGPA:} 2.7, magna cum laude}
         */
 
-        addText(LatexExpressionBuilder.getLatex("cvSection","Experience"));
+        addText(LatexExpressionBuilder.getLatex("cvSection","Education"));
         for (int i=0;i<educations.length;i++){
             Education education = educations[i];
             String city = "";
@@ -70,6 +71,39 @@ public class AcademicCVType1 extends LatexCVGenerator{
         }
     }
 
+    @Override
+    protected void addWorkExperience(WorkExperience[] workExperiences) {
+        /* Template as below
+        	\cvSection{Experience}
+            \CVBlockWithTime{Intern}{11/2021 - 2/2022}{Duck GmbH}{That bigger hole, Mars}
+            {Implemented additional butchering features into the duck pipeline}
+            \CVBlockWithTime{Master Thesis Student}{4 - 10/2021}{Duck GmbH}{That smaller hole, Mars}
+            {Evaluation and Adaption of Duck Butchering Algorithms for Mobile Robots in Zero-gravity Environment}
+         */
+
+        addText(LatexExpressionBuilder.getLatex("cvSection","Work Experience"));
+
+        for (int i=0;i<workExperiences.length;i++){
+            WorkExperience workExperience = workExperiences[i];
+
+            String city = "";
+
+            if(workExperience.country!= null  && workExperience.city!=null)
+                city = workExperience.country + ", " + workExperience.city;
+            else if(workExperience.country!=null)
+                city = workExperience.country;
+            else if(workExperience.city != null)
+                city = workExperience.city;
+
+
+            addText(LatexExpressionBuilder.getLatex("CVBlockWithTime",workExperience.jobPosition,
+                    "" + workExperience.startingYear + " - " + workExperience.finishingYear,workExperience.company,
+                    city
+                    ,"")); //TODO description needed
+
+        }
+    }
+
 
     @Override
     public String generatePdfCV(JsonReq jsonReq) {
@@ -84,6 +118,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             setTitle();
             addSummary(jsonReq.summary);
             addEducation(jsonReq.education);
+            addWorkExperience(jsonReq.workExperiences);
             addText("\\end{document}");
 
             //saving final data in the LaTex file
