@@ -1,10 +1,7 @@
 package Latex;
 
 import Files.FileManager;
-import Requests.Certificate;
-import Requests.Education;
-import Requests.JsonReq;
-import Requests.WorkExperience;
+import Requests.*;
 
 import java.io.File;
 
@@ -83,6 +80,35 @@ public class AcademicCVType1 extends LatexCVGenerator{
     }
 
     @Override
+    protected void addHonors(Honor[] honors) {
+        //writing architecture is the same as education and experience
+        addText("cvSection","Honors & Awards");
+        for (int i=0;i<honors.length;i++){
+            Honor honor = honors[i];
+            addText("CVBlockWithTime",honor.title,honor.date,"","",honor.description);
+        }
+    }
+
+    @Override
+    protected void addLanguages(Language[] languages) {
+        /* Style -->
+        	\cvSection{Skills}
+	        \tab \begin{tabular}{r p{0.7\textwidth}}
+		     \texttt{\large Programming Language} & \textbf{Experienced:} Duckython \tab \textbf{Familiar:} D++ \cvContactSep Dash \cvContactSep DMake \cvContactSep Datex\\
+
+         */
+        addText("cvSection","Languages");
+        addText("\\tab \\begin{tabular}{r p{0.7\\textwidth}}"); //change this number for more gaps
+        for (int i=0;i<languages.length;i++){
+            Language language = languages[i];
+            addText(String.format("\\texttt{\\large %s}",language.languageName));
+            addText(String.format("\\textbf{Listening:}%s \\tab \\textbf{Reading:}%s \\tab " +
+                    "\\textbf{Writing:}%s \\tab \\textbf{Speaking:}%s \\tab ",
+                    language.listeningLevel,language.readingLevel,language.writingLevel,language.speakingLevel));
+        }
+    }
+
+    @Override
     protected void addWorkExperience(WorkExperience[] workExperiences) {
         /* Template as below
         	\cvSection{Experience}
@@ -130,6 +156,9 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addSummary(jsonReq.summary);
             addEducation(jsonReq.education);
             addWorkExperience(jsonReq.workExperiences);
+            addLanguages(jsonReq.languages);
+            addCertificates(jsonReq.certificates);
+            addHonors(jsonReq.honors);
             addText("\\end{document}");
 
             //saving final data in the LaTex file
