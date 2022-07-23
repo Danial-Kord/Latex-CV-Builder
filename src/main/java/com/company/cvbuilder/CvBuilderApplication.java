@@ -1,5 +1,6 @@
 package com.company.cvbuilder;
 
+import Files.FileManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CvBuilderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CvBuilderApplication.class, args);
+        FileManager.creatFile();
+        //SpringApplication.run(CvBuilderApplication.class, args);
     }
 
 
