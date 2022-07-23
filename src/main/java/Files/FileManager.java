@@ -6,9 +6,8 @@ import java.nio.file.Path;
 
 public class FileManager {
 
-    private static final String Directory = "./TempFiles";
 
-    public static File creatFile(){
+    public static File creatFile(String Directory){
         if(!Files.exists(Path.of(Directory))){
             try {
                 Files.createDirectory(Path.of(Directory));

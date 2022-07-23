@@ -27,6 +27,8 @@ public class CvBuilderApplication {
     @RequestMapping("/pdfGenerator")
     @ResponseBody
     public String doSomeThing(@RequestBody JsonReq input){
-        return "" + input.education.GPA;
+        AcademicCVType1 academicCVType1 = new AcademicCVType1();
+        academicCVType1.generatePdfCV(input);
+        return "" + input.education;
     }
 }
