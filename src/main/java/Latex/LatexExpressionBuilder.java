@@ -7,7 +7,7 @@ public class LatexExpressionBuilder {
         for (int i=0;i<args.length;i++){
             output.append("{");
             if(args[i] != null)
-                output.append(args[i]);
+                output.append(args[i]); //TODO check injections and wrong inputs
             output.append("}");
         }
         output.append("\n");

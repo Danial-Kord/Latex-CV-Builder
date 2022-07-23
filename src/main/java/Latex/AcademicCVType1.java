@@ -1,6 +1,7 @@
 package Latex;
 
 import Files.FileManager;
+import Requests.Certificate;
 import Requests.Education;
 import Requests.JsonReq;
 import Requests.WorkExperience;
@@ -68,6 +69,16 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     city
                     ,GPA));
 
+        }
+    }
+
+    @Override
+    protected void addCertificates(Certificate[] certificates) {
+        //writing architecture is the same as education and experience
+        addText("cvSection","Certificates");
+        for (int i=0;i<certificates.length;i++){
+            Certificate certificate = certificates[i];
+            addText("CVBlockWithTime",certificate.title,certificate.date,certificate.institute,"","");
         }
     }
 

@@ -1,6 +1,7 @@
 package Latex;
 
 import Files.FileManager;
+import Requests.Certificate;
 import Requests.Education;
 import Requests.JsonReq;
 import Requests.WorkExperience;
@@ -16,6 +17,7 @@ public abstract class LatexCVGenerator {
 
 
     protected abstract void addEducation(Education[] educations);
+    protected abstract void addCertificates(Certificate[] certificates);
     protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
     protected abstract void addExperience(String data);
