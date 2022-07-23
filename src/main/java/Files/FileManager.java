@@ -1,7 +1,6 @@
 package Files;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -23,6 +22,20 @@ public class FileManager {
             System.out.println("problem occurred when generating file");
         }
         return null;
+    }
+    //adds new data to existing file
+    public static boolean addData(File file,String data){
+
+        try (FileWriter f = new FileWriter(file, true);
+             BufferedWriter b = new BufferedWriter(f);
+             PrintWriter p = new PrintWriter(b);) {
+
+            p.println(data);
+            return true;
+        } catch (IOException i) {
+            System.out.println("Problem occurred when appending data to file");
+        }
+        return false;
     }
 
 }
