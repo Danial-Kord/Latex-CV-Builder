@@ -19,6 +19,8 @@ public abstract class LatexCVGenerator {
     protected abstract void addLanguages(Language[] languages);
     protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
+    protected abstract void addReferences(Reference[] references);
+
     protected abstract void addExperience(String data);
     protected abstract void addSummary(String data);
 
@@ -64,7 +66,6 @@ public abstract class LatexCVGenerator {
     //compile and returns pdf file path
     protected String compileTexFile(File file){
 
-        System.out.println("1");
         String outputName = FileManager.getFileName(file);
         String command = String.format("cd \"%s\" && dir && xelatex -jobname %s -interaction nonstopmode %s",
                 Directory,outputName,file.getName());
@@ -73,9 +74,7 @@ public abstract class LatexCVGenerator {
         builder.redirectErrorStream(true);
         Process p = null;
         try {
-            System.out.println("here");
             p = builder.start();
-            System.out.println("here2");
             showCompilerResults(p);
         } catch (IOException e) {
             System.out.println(String.format("Compilation failed\nfile: %s, ",file.getName()));

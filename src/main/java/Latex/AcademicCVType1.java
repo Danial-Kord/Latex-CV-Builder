@@ -62,7 +62,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             if(education.GPA != 0)
                 GPA = "\\textbf{CGPA:}" + education.GPA;
             addText(LatexExpressionBuilder.getLatex("CVBlockWithTime",education.institutionName,
-                    "" + education.entranceYear + " - " + education.graduateYear,education.degree,
+                    "" + education.entranceYear + " - " + education.graduateYear,education.degree + " of " + education.field ,
                     city
                     ,GPA));
 
@@ -101,11 +101,12 @@ public class AcademicCVType1 extends LatexCVGenerator{
         addText("\\tab \\begin{tabular}{r p{0.7\\textwidth}}"); //change this number for more gaps
         for (int i=0;i<languages.length;i++){
             Language language = languages[i];
-            addText(String.format("\\texttt{\\large %s}",language.languageName));
-            addText(String.format("\\textbf{Listening:}%s \\tab \\textbf{Reading:}%s \\tab " +
-                    "\\textbf{Writing:}%s \\tab \\textbf{Speaking:}%s \\tab ",
-                    language.listeningLevel,language.readingLevel,language.writingLevel,language.speakingLevel));
+            addText(String.format("\\texttt{\\large %s} & ",language.languageName));
+            addText(String.format("\\textbf{Listening : }%s \\tab \\textbf{Reading : }%s \\tab " +
+                    "\\textbf{Writing : }%s \\tab \\textbf{Speaking : }%s \\tab ",
+                    language.listeningLevel,language.readingLevel,language.writingLevel,language.speakingLevel) + "\\\\");
         }
+        addText("\\end{tabular} \\\\~\\\\");
     }
 
     @Override
@@ -141,6 +142,28 @@ public class AcademicCVType1 extends LatexCVGenerator{
         }
     }
 
+    @Override
+    protected void addReferences(Reference[] references) {
+
+        /* Template as below
+        \cvSection{Referee}
+        \smallskip
+        \cvreferee{Dr. San Zhang}{Professor}
+          {School of Engineering, Wild Rooster University}
+          {san.zhang@wru.edu}
+          {0123 456 789}
+          {https://wildroosteruniversity/people/zhang-san}
+         */
+
+        addText("cvSection","Languages");
+        addText("\\smallskip"); //small gap
+        for (int i=0;i<references.length;i++){
+            Reference reference = references[i];
+            addText("cvreferee",reference.name,reference.jobTitle,reference.companyName,
+                    reference.emailAddress,reference.phoneNumber,reference.emailAddress);
+        }
+    }
+
 
     @Override
     public File creatTexFile(JsonReq jsonReq) {
@@ -152,6 +175,15 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addText(headerData);
             addText("\\begin{document}");
             setName(jsonReq.name,jsonReq.familyName);
+            setEmail(jsonReq.emailAddress);
+            setMobile(jsonReq.phoneNumber);
+
+            if(jsonReq.github != null)
+                setGithub(jsonReq.github);
+            if(jsonReq.blog != null)
+                setBlog(jsonReq.blog);
+            if(jsonReq.linkedin != null)
+                setLinkedin(jsonReq.linkedin);
             setTitle();
             if(jsonReq.summary != null)
                 addSummary(jsonReq.summary);
@@ -165,6 +197,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
                 addCertificates(jsonReq.certificates);
             if(jsonReq.honors != null)
                 addHonors(jsonReq.honors);
+            if(jsonReq.references != null)
+                addReferences(jsonReq.references);
             addText("\\end{document}");
 
             //saving final data in the LaTex file
