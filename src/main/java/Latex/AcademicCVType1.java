@@ -19,7 +19,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     "]{article}\n" +
                     "\n" +
                     "\\usepackage{curriculum-vitae}\n";
-        Directory = "./Template1";
+        Directory = "Template1";
     }
 
 
@@ -153,12 +153,18 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addText("\\begin{document}");
             setName(jsonReq.name,jsonReq.familyName);
             setTitle();
-            addSummary(jsonReq.summary);
-            addEducation(jsonReq.education);
-            addWorkExperience(jsonReq.workExperiences);
-            addLanguages(jsonReq.languages);
-            addCertificates(jsonReq.certificates);
-            addHonors(jsonReq.honors);
+            if(jsonReq.summary != null)
+                addSummary(jsonReq.summary);
+            if(jsonReq.education != null)
+                addEducation(jsonReq.education);
+            if(jsonReq.workExperiences != null)
+                addWorkExperience(jsonReq.workExperiences);
+            if(jsonReq.languages != null)
+                addLanguages(jsonReq.languages);
+            if(jsonReq.certificates != null)
+                addCertificates(jsonReq.certificates);
+            if(jsonReq.honors != null)
+                addHonors(jsonReq.honors);
             addText("\\end{document}");
 
             //saving final data in the LaTex file
@@ -166,8 +172,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
             return file;
         }
         catch (Exception e){
-            System.out.println("PDF generator failed");
+//            throw new RuntimeException(e);
+            System.out.println("Tex file generator failed");
             return null;
         }
+
     }
 }

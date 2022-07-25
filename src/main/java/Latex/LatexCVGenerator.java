@@ -2,10 +2,8 @@ package Latex;
 
 import Files.FileManager;
 import Requests.*;
-import com.company.cvbuilder.CvBuilderApplication;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public abstract class LatexCVGenerator {
 
@@ -66,15 +64,19 @@ public abstract class LatexCVGenerator {
     //compile and returns pdf file path
     protected String compileTexFile(File file){
 
+        System.out.println("1");
         String outputName = FileManager.getFileName(file);
-        ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", String.format("/c","cd \"%s\" && dir && xelatex -jobname %s %s",
-                Directory,outputName,file.getName())); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+        String command = String.format("cd \"%s\" && dir && xelatex -jobname %s -interaction nonstopmode %s",
+                Directory,outputName,file.getName());
+        System.out.println(command);
+        ProcessBuilder builder = new ProcessBuilder("cmd.exe","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
         builder.redirectErrorStream(true);
         Process p = null;
         try {
+            System.out.println("here");
             p = builder.start();
-            CvBuilderApplication.Show_Results(p);
+            System.out.println("here2");
+            showCompilerResults(p);
         } catch (IOException e) {
             System.out.println(String.format("Compilation failed\nfile: %s, ",file.getName()));
             return null;
@@ -83,6 +85,15 @@ public abstract class LatexCVGenerator {
         if (outputPDF != null)
             return outputPDF.getAbsolutePath();
         return null;
+    }
+
+
+    protected static void showCompilerResults(Process p) throws IOException {
+        BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String output = "";
+        while ((output = output_reader.readLine()) != null) {
+            System.out.println(output);
+        }
     }
 
     protected abstract File creatTexFile(JsonReq jsonReq);

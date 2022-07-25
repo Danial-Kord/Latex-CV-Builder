@@ -12,20 +12,14 @@ import java.io.*;
 @SpringBootApplication
 @RestController
 public class CvBuilderApplication {
-    public static void Show_Results(Process p) throws IOException {
-        BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String output = "";
-        while ((output = output_reader.readLine()) != null) {
-            System.out.println(output);
-        }
-    }
+
     public static void main(String[] args) {
 //        AcademicCVType1 academicCVType1 = new AcademicCVType1();
 //        academicCVType1.generatePdfCV(null);
 //        FileManager.addData(FileManager.creatFile(),"{name}");
 
 
-//        SpringApplication.run(CvBuilderApplication.class, args);
+        SpringApplication.run(CvBuilderApplication.class, args);
     }
 
 
@@ -38,7 +32,7 @@ public class CvBuilderApplication {
     @ResponseBody
     public String doSomeThing(@RequestBody JsonReq input){
         AcademicCVType1 academicCVType1 = new AcademicCVType1();
-        academicCVType1.generatePdfCV(input);
-        return "" + input.education;
+        return academicCVType1.generatePdfCV(input);
+
     }
 }
