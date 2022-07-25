@@ -21,7 +21,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     "\\usepackage{curriculum-vitae}\n" +
                     "\\setfooter{IAESTE 2022}" +
                     "\n";
-        Directory = "Template1";
+        Directory = "CVModel1";
     }
 
 
@@ -177,6 +177,23 @@ public class AcademicCVType1 extends LatexCVGenerator{
     }
 
     @Override
+    protected void addSkills(Skill[] skills) {
+                /* Template as below
+            \cvSection{IT Skills}
+
+                \cvskill{C++}{5}
+
+         */
+        if(skills == null)
+            return;
+        addText("cvSection","Skills");
+        for (int i=0;i<skills.length;i++){
+            Skill skill = skills[i];
+            addText("cvskill",skill.skillName,String.valueOf(skill.level));
+        }
+    }
+
+    @Override
     protected void addPublication(Publication[] publications) {
 
         /* Template as below
@@ -209,7 +226,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             setName(jsonReq.name,jsonReq.familyName);
             setEmail(jsonReq.emailAddress);
             setMobile(jsonReq.phoneNumber);
-
+            setLogo();
             setGithub(jsonReq.github);
             setBlog(jsonReq.blog);
             setLinkedin(jsonReq.linkedin);
@@ -217,6 +234,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addSummary(jsonReq.summary);
             addEducation(jsonReq.education);
             addWorkExperience(jsonReq.workExperiences);
+            addSkills(jsonReq.skills);
             addLanguages(jsonReq.languages);
             addCertificates(jsonReq.certificates);
             addHonors(jsonReq.honors);

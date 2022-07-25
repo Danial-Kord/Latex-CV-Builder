@@ -20,6 +20,7 @@ public abstract class LatexCVGenerator {
     protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
     protected abstract void addReferences(Reference[] references);
+    protected abstract void addSkills(Skill[] skills);
     protected abstract void addPublication(Publication[] publications);
 
     protected abstract void addExperience(String data);
@@ -45,6 +46,9 @@ public abstract class LatexCVGenerator {
 
     protected void setLinkedin(String linkedin){
         addText("setlinkedin",linkedin);
+    }
+    protected void setLogo(){
+        addText("setlogo","IAESTE.png");
     }
 
     protected void setGithub(String github){

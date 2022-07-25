@@ -23,6 +23,7 @@
 \RequirePackage{lastpage} % get total page num
 \usepackage{tikz}
 \usepackage{graphicx}
+
 % Fonts
 \setmonofont{BebasKai}[
 	Path=./,
@@ -76,7 +77,14 @@
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt} % remove header lines
   \cfoot{{\thepage\ of \color{lightblue}\pageref{LastPage}}}
-  \rfoot{{#1}}
+  \rfoot{{
+	% \begin{tikzpicture} 
+	% 	\begin{scope}
+	% 		\clip [rounded corners=.5cm] (0,0) rectangle coordinate (centerpoint) (1,1cm); 
+	% 		\node [inner sep=0pt] at (centerpoint) {\includegraphics[width=0.75cm]{IAESTE.png}}; 
+	% 	\end{scope}
+	% \end{tikzpicture}	
+  #1}}
 }
 
 
@@ -92,9 +100,12 @@
 \newcommand*{\setlogo}[1]{\def\@logo{#1}}
 %	CV TITLE
 \newcommand{\cvtitle}[1]{
+
 	\begin{center}
 		{
-			\vspace*{-1cm}{
+
+
+			\vspace{-1cm}{
 				% \hspace*{-16cm}{
 						{%
 						\begin{tikzpicture} 
@@ -107,19 +118,13 @@
 						}
 					% }
 				}
-		}
-	\begin{center}
-		{
-
-
-
 
 			\fontsize{27}{0}\selectfont
 			\texttt{\@firstname \ {\color{gray}{\@lastname}} }
 			\textcolor{red}{\cvContactSep \textbf{#1}}}\\
 			{\fontsize{12}{0}\selectfont
 			\cvContactSpace \href{mailto:\@mail}{\faIcon{envelope} \@mail}
-			\cvContactSpace \@address
+			% \cvContactSpace \@address
 			\cvContactSpace \faIcon{phone} \@mobile\\
 
 			\ifdefined\@github
@@ -177,16 +182,16 @@
 
 \newcommand{\cvreferee}[6]{
   {
-  \noindent\hspace{0.2\linewidth}
+  \noindent\hspace{0.1\linewidth}
   \makebox[0.4\linewidth][l]{
     \href{#6}{\large{#1}}
     \normalsize\hspace{2ex}\faMortarBoard~#2
   }\par\smallskip
-  \noindent\hspace{0.2\linewidth}
+  \noindent\hspace{0.1\linewidth}
   \makebox[3ex][l]{\faInstitution}\makebox[0.6\linewidth][l]{#3}\par
-  \noindent\hspace{0.2\linewidth}
+  \noindent\hspace{0.1\linewidth}
   \makebox[3ex][l]{\faEnvelope}\makebox[0.6\linewidth][l]{\href{mailto:#4}{#4}}\par
-  \noindent\hspace{0.2\linewidth}
+  \noindent\hspace{0.1\linewidth}
   \makebox[3ex][l]{\faPhone}\makebox[0.6\linewidth][l]{#5}\par
   \medskip
   }
@@ -199,5 +204,19 @@
 }
 }
 
+\newcommand{\QAcvSection}[1]{
+	
+	{\textcolor{red}{\texttt{\Huge{\firstLetter#1@}\LARGE{\secondLetter#1@}} \hrulefill}}
+}
+
+\newcounter{question}
+\setcounter{question}{0}
+
+\newcommand{\question}[1]{
+	\item[\refstepcounter{question}\thequestion.] \textit{#1}
+	}
+\newcommand{\answer}[1]{
+	\item[\color{emphcolor}\faCircle] #1
+	}
 
 
