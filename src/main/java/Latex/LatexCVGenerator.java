@@ -20,7 +20,10 @@ public abstract class LatexCVGenerator {
     protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
     protected abstract void addReferences(Reference[] references);
+
+
     protected abstract void addSkills(Skill[] skills);
+    protected abstract void addQAs(QuestionAnswer[] QAs);
     protected abstract void addPublication(Publication[] publications);
 
     protected abstract void addExperience(String data);
@@ -34,6 +37,7 @@ public abstract class LatexCVGenerator {
     protected void setTitle(){
         addText("cvtitle","Curriculum Vitae");
     }
+
 
 
     protected void setMobile(String phoneNumber){
@@ -60,7 +64,10 @@ public abstract class LatexCVGenerator {
     }
 
     protected void addText(String data){
-        finalText.append(data);
+        if(data.endsWith("\n"))
+            finalText.append(data);
+        else
+            finalText.append(data+"\n");
     }
 
     protected String addText(String syntax,String... args){

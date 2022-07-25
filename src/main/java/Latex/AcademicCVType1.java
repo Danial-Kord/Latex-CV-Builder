@@ -17,10 +17,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     "    draft = false,\n" +
                     "    twoside = false,\n" +
                     "]{article}\n" +
-                    "\n" +
+                    "\\usepackage{enumitem}\n" +
                     "\\usepackage{curriculum-vitae}\n" +
-                    "\\setfooter{IAESTE 2022}" +
-                    "\n";
+                    "\n" +
+                    "\\setfooter{IAESTE 2022} \n";
         Directory = "CVModel1";
     }
 
@@ -34,8 +34,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
     protected void addSummary(String data) {
         if(data == null)
             return;
-        addText(LatexExpressionBuilder.getLatex("cvSection","Summary"));
-        addText(LatexExpressionBuilder.getLatex("CVTextBlock",data));
+        addText("cvSection","Summary");
+        addText("CVTextBlock",data);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
         */
         if(educations == null)
             return;
-        addText(LatexExpressionBuilder.getLatex("cvSection","Education"));
+        addText("cvSection","Education");
         for (int i=0;i<educations.length;i++){
             Education education = educations[i];
             String city = "";
@@ -66,10 +66,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
             String GPA = "";
             if(education.GPA != 0)
                 GPA = "\\textbf{CGPA:}" + education.GPA;
-            addText(LatexExpressionBuilder.getLatex("CVBlockWithTime",education.institutionName,
+            addText("CVBlockWithTime",education.institutionName,
                     "" + education.entranceYear + " - " + education.graduateYear,education.degree + " of " + education.field ,
                     city
-                    ,GPA));
+                    ,GPA);
 
         }
     }
@@ -130,7 +130,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
         if(workExperiences == null)
             return;
-        addText(LatexExpressionBuilder.getLatex("cvSection","Work Experience"));
+        addText("cvSection","Work Experience");
 
         for (int i=0;i<workExperiences.length;i++){
             WorkExperience workExperience = workExperiences[i];
@@ -145,10 +145,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
                 city = workExperience.city;
 
 
-            addText(LatexExpressionBuilder.getLatex("CVBlockWithTime",workExperience.jobPosition,
+            addText("CVBlockWithTime",workExperience.jobPosition,
                     "" + workExperience.startingYear + " - " + workExperience.finishingYear,workExperience.company,
                     city
-                    ,"")); //TODO description needed
+                    ,""); //TODO description needed
 
         }
     }
@@ -168,7 +168,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
         if(references == null)
             return;
         addText("cvSection","References");
-        addText("\\smallskip"); //small gap
+        addText("\n");
         for (int i=0;i<references.length;i++){
             Reference reference = references[i];
             addText("cvreferee",reference.name,reference.jobTitle,reference.companyName,
@@ -187,10 +187,37 @@ public class AcademicCVType1 extends LatexCVGenerator{
         if(skills == null)
             return;
         addText("cvSection","Skills");
+        addText("\n");
         for (int i=0;i<skills.length;i++){
             Skill skill = skills[i];
             addText("cvskill",skill.skillName,String.valueOf(skill.level));
         }
+    }
+
+    @Override
+    protected void addQAs(QuestionAnswer[] QAs) {
+             /* Template as below
+	    \QAcvSection{Q \& A}
+	    \begin{itemize}[leftmargin=1.6cm]
+		\question{What is your favorite color?}
+		\answer{Blue}
+		\question{What is your quest?}
+		\answer{To seek the holy grail.}
+		\question{What is the air speed velocity of an unladen swallow?}
+		\answer{I don't know that!}
+	    \end{itemize}
+		}
+         */
+        if(QAs == null)
+            return;
+        addText("QAcvSection","Q \\& A");
+        addText("\\begin{itemize}[leftmargin=1.6cm]");
+        for (int i=0;i<QAs.length;i++){
+            QuestionAnswer qa = QAs[i];
+            addText("question",qa.question);
+            addText("answer",qa.answer);
+        }
+        addText("\\end{itemize}");
     }
 
     @Override
@@ -222,7 +249,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
         try {
             //building LaTex data
             addText(headerData);
-            addText("\\begin{document}");
+            addText("\\begin{document}\n");
             setName(jsonReq.name,jsonReq.familyName);
             setEmail(jsonReq.emailAddress);
             setMobile(jsonReq.phoneNumber);
@@ -240,6 +267,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addHonors(jsonReq.honors);
             addReferences(jsonReq.references);
             addPublication(jsonReq.publications);
+            addQAs(jsonReq.QAs);
             addText("\\end{document}");
 
             //saving final data in the LaTex file

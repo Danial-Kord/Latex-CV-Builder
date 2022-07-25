@@ -19,4 +19,5 @@ public class JsonReq {
     public Publication[] publications;
     public Honor[] honors;
     public Reference[] references;
+    public QuestionAnswer[] QAs;
 }
