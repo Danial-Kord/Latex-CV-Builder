@@ -7,5 +7,6 @@ public class ProjectExperience {
     public String city;
     public String startingYear;
     public String finishingYear;
+    public String projectFor;
     public String linkURL;
 }

@@ -21,6 +21,7 @@ public abstract class LatexCVGenerator {
 
     protected abstract void addReferences(Reference[] references);
 
+    protected abstract void addProjectExperiences(ProjectExperience[] projectExperiences);
 
     protected abstract void addSkills(Skill[] skills);
     protected abstract void addQAs(QuestionAnswer[] QAs);
@@ -64,10 +65,8 @@ public abstract class LatexCVGenerator {
     }
 
     protected void addText(String data){
-        if(data.endsWith("\n"))
             finalText.append(data);
-        else
-            finalText.append(data+"\n");
+
     }
 
     protected String addText(String syntax,String... args){

@@ -177,6 +177,37 @@ public class AcademicCVType1 extends LatexCVGenerator{
     }
 
     @Override
+    protected void addProjectExperiences(ProjectExperience[] projectExperiences) {
+        /* Template as below
+            \CVProject{Intern}{11/2021 - 2/2022}{Duck GmbH}{That bigger hole, Mars}
+            {Implemented additional butchering features into the duck pipeline}
+            {Google.com}
+
+         */
+        if(projectExperiences == null)
+            return;
+        addText("cvSection","Project Experience");
+
+        for (int i=0;i<projectExperiences.length;i++){
+            ProjectExperience projectExperience = projectExperiences[i];
+
+            String city = "";
+
+            if(projectExperience.country!= null  && projectExperience.city!=null)
+                city = projectExperience.country + ", " + projectExperience.city;
+            else if(projectExperience.country!=null)
+                city = projectExperience.country;
+            else if(projectExperience.city != null)
+                city = projectExperience.city;
+
+
+            addText("CVProject",projectExperience.title,
+                    "" + projectExperience.startingYear + " - " + projectExperience.finishingYear,projectExperience.projectFor,
+                    city,projectExperience.description,projectExperience.linkURL);
+        }
+    }
+
+    @Override
     protected void addSkills(Skill[] skills) {
                 /* Template as below
             \cvSection{IT Skills}
@@ -261,6 +292,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addSummary(jsonReq.summary);
             addEducation(jsonReq.education);
             addWorkExperience(jsonReq.workExperiences);
+            addProjectExperiences(jsonReq.projectExperiences);
             addSkills(jsonReq.skills);
             addLanguages(jsonReq.languages);
             addCertificates(jsonReq.certificates);
