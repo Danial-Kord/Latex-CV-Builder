@@ -7,6 +7,25 @@ import java.nio.file.Path;
 public class FileManager {
 
 
+    private static String defaultSuffix = ".tex";
+
+    public static String getFileName(File file,String suffix){
+        return file.getName().substring(0,file.getName().length()-(suffix.length()));
+    }
+
+    public static String getFileName(File file){
+        return getFileName(file,defaultSuffix);
+    }
+
+    public static File getFile(String directory, String fileName){
+        boolean exists = Files.exists(Path.of(directory + "\\" + fileName));
+        if(exists) {
+            File f = new File(directory + "\\" + fileName);
+            return f;
+        }
+        else return null;
+    }
+
     public static File creatFile(String Directory){
         if(!Files.exists(Path.of(Directory))){
             try {
@@ -16,7 +35,7 @@ public class FileManager {
             }
         }
         try {
-            return File.createTempFile("TEX",".text", new File(Directory));
+            return File.createTempFile("TEX",defaultSuffix, new File(Directory));
         } catch (IOException e) {
             System.out.println("problem occurred when generating file");
         }

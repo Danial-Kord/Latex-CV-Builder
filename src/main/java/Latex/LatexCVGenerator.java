@@ -2,8 +2,10 @@ package Latex;
 
 import Files.FileManager;
 import Requests.*;
+import com.company.cvbuilder.CvBuilderApplication;
 
 import java.io.File;
+import java.io.IOException;
 
 public abstract class LatexCVGenerator {
 
@@ -60,15 +62,35 @@ public abstract class LatexCVGenerator {
         finalText.append(LatexExpressionBuilder.getLatex(syntax,args));
     }
 
-    public String generatePdfCV(JsonReq jsonReq){
-        File file = FileManager.creatFile(Directory);
-        if(file == null)
-            return null;
-        try {
 
-        }
-        catch (Exception e){
+    //compile and returns pdf file path
+    protected String compileTexFile(File file){
+
+        String outputName = FileManager.getFileName(file);
+        ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", String.format("/c","cd \"%s\" && dir && xelatex -jobname %s %s",
+                Directory,outputName,file.getName())); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+        builder.redirectErrorStream(true);
+        Process p = null;
+        try {
+            p = builder.start();
+            CvBuilderApplication.Show_Results(p);
+        } catch (IOException e) {
+            System.out.println(String.format("Compilation failed\nfile: %s, ",file.getName()));
             return null;
+        }
+        File outputPDF = FileManager.getFile(Directory,outputName+".pdf");
+        if (outputPDF != null)
+            return outputPDF.getAbsolutePath();
+        return null;
+    }
+
+    protected abstract File creatTexFile(JsonReq jsonReq);
+
+    public String generatePdfCV(JsonReq jsonReq){
+        File texFile = creatTexFile(jsonReq);//creates tex file scheme and saves it to file
+        if(texFile != null){
+            return compileTexFile(texFile); //compile tex file and generates pdf output
         }
         return null;
     }

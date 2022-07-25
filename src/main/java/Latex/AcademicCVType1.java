@@ -143,7 +143,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
 
     @Override
-    public String generatePdfCV(JsonReq jsonReq) {
+    public File creatTexFile(JsonReq jsonReq) {
         File file = FileManager.creatFile(Directory);
         if(file == null)
             return null;
@@ -163,7 +163,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
             //saving final data in the LaTex file
             FileManager.addData(file, String.valueOf(finalText));
-            return "Done!";
+            return file;
         }
         catch (Exception e){
             System.out.println("PDF generator failed");

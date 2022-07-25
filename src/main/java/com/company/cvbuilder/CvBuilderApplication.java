@@ -25,18 +25,6 @@ public class CvBuilderApplication {
 //        FileManager.addData(FileManager.creatFile(),"{name}");
 
 
-        ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c","cd \"resume2\" && dir && xelatex -jobname dd1 CV.tex"); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
-        builder.redirectErrorStream(true);
-        Process p = null;
-        try {
-            p = builder.start();
-            CvBuilderApplication.Show_Results(p);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
 //        SpringApplication.run(CvBuilderApplication.class, args);
     }
 
