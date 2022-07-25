@@ -1,0 +1,203 @@
+% Created by Huu Duc Nguyen
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{curriculum-vitae}[2022/27/04]
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\RequirePackage[utf8]{inputenc}    			% Input-encoding
+\RequirePackage{xstring, xifthen}			% provides \isempty test
+\RequirePackage{fontawesome5, moresize}		% Fonts
+\RequirePackage{fontenc, fontspec}	
+
+% \RequirePackage{hyperref}
+\RequirePackage{etoolbox} %\ifnumgreater
+\RequirePackage{tikz} %\foreach
+\RequirePackage{xcolor}
+\definecolor{lightblue}{RGB}{0, 150, 180}
+\definecolor{emphblue}{RGB}{0, 120, 150}
+\definecolor{midnightblue}{rgb}{0.1, 0.1, 0.44}
+
+\colorlet{emphcolor}{emphblue}
+\colorlet{body}{black!80!white}
+\RequirePackage{fancyhdr} % header & footer
+\RequirePackage{lastpage} % get total page num
+\usepackage{tikz}
+\usepackage{graphicx}
+% Fonts
+\setmonofont{BebasKai}[
+	Path=./,
+	Extension = .otf,
+	UprightFont=*-Regular,
+]
+\setmainfont{MuseoSans}[
+	Path=./,
+	Extension = .otf,
+	UprightFont=*-100,
+	BoldFont=*-500,	
+]
+\RequirePackage[a4paper]{geometry}						% define page styles using geometry
+\geometry{top=1.4cm, bottom=1.4cm, left=1cm, right=1cm}	% remove all possible margins
+\RequirePackage{color}
+\definecolor{red}{RGB}{218, 0, 55}
+\definecolor{black}{RGB}{23, 23, 23}
+\definecolor{gray}{RGB}{147, 147, 147}
+\RequirePackage[pdfusetitle,
+	hidelinks,		
+	pdfborder		={0 0 0},		% Avoid borders in PDF
+	linkcolor		= red,			% simple internal links
+	colorlinks		= true,			% Set text color
+	anchorcolor		= black,		% Anchor text
+	menucolor		= black,		% Acrobat-menu
+	urlcolor		= red			% Reference to internet links 
+]{hyperref}							% Hyperlink
+\RequirePackage{fancyhdr, lastpage}	% Paging style
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\textbf{\thepage \ / \pageref{LastPage}}}
+\RequirePackage{setspace}			% Varying line spacing
+\RequirePackage[none]{hyphenat}		% No word break with hyphen
+
+%	SUPPORTING FUNCTIONS
+\def\hrulefill{\leavevmode\leaders\hrule height 1.4pt\hfill\kern\z@}
+\def\firstLetter#1#2@{#1}
+\def\secondLetter#1#2@{#2}
+\newcommand\tab[1][.9cm]{\hspace*{#1}}
+\newcommand{\cvContactSpace}{\quad\textcolor{red}{$\bullet$}\quad}
+\newcommand{\cvContactSep}{\textcolor{red}{\textbf{|}} }
+%============================================================================%
+%	CV COMMANDS
+%============================================================================%
+
+
+% set footer
+\newcommand{\setfooter}[1]{
+  \pagestyle{fancy}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt} % remove header lines
+  \cfoot{{\thepage\ of \color{lightblue}\pageref{LastPage}}}
+  \rfoot{{#1}}
+}
+
+
+%	SETTING UP INFO
+\newcommand*{\setname}[2]{\def\@firstname{#1}\def\@lastname{#2}}
+\newcommand*{\setaddress}[1]{\def\@address{#1}}
+\newcommand*{\setmobile}[1]{\def\@mobile{#1}}
+\newcommand*{\setposition}[1]{\def\@position{#1}}
+\newcommand*{\setmail}[1]{\def\@mail{#1}}
+\newcommand*{\setlinkedin}[1]{\def\@linkedin{#1}}
+\newcommand*{\setgithub}[1]{\def\@github{#1}}
+\newcommand*{\setblog}[1]{\def\@blog{#1}}
+\newcommand*{\setlogo}[1]{\def\@logo{#1}}
+%	CV TITLE
+\newcommand{\cvtitle}[1]{
+	\begin{center}
+		{
+			\vspace*{-1cm}{
+				% \hspace*{-16cm}{
+						{%
+						\begin{tikzpicture} 
+							\begin{scope}
+								\clip [rounded corners=.5cm] (0,0) rectangle coordinate (centerpoint) (2,2cm); 
+								\node [inner sep=0pt] at (centerpoint) {\includegraphics[width=2.0cm]{\@logo}}; 
+							\end{scope}
+						\end{tikzpicture}
+						
+						}
+					% }
+				}
+		}
+	\begin{center}
+		{
+
+
+
+
+			\fontsize{27}{0}\selectfont
+			\texttt{\@firstname \ {\color{gray}{\@lastname}} }
+			\textcolor{red}{\cvContactSep \textbf{#1}}}\\
+			{\fontsize{12}{0}\selectfont
+			\cvContactSpace \href{mailto:\@mail}{\faIcon{envelope} \@mail}
+			\cvContactSpace \@address
+			\cvContactSpace \faIcon{phone} \@mobile\\
+
+			\ifdefined\@github
+			\cvContactSpace \href{\@github}{\faIcon{github} GitHub}
+			\fi
+			\ifdefined\@linkedin
+			\cvContactSpace \href{\@linkedin}{\faIcon{linkedin} LinkedIn}
+			\fi
+			\ifdefined\@blog
+			\cvContactSpace \href{\@blog}{\faIcon{blog} Blog}
+			\fi
+			\\~{\Large \\~\\}}
+	\end{center}
+}
+%	CV SECTION
+\newcommand{\cvSection}[1]{
+	
+	{\textcolor{red}{\texttt{\Huge{\firstLetter#1@}\LARGE{\secondLetter#1@}} \hrulefill}}\\~\\
+}
+%	 CV Block with date/time
+\newcommand{\CVBlockWithTime}[5]{
+	\tab \texttt{\Large \textbf{#1}} \hfill \textbf{\large #2}\\
+	\tab \textbf{#3} \hfill #4\\
+	\ifthenelse{\isempty{#5}}{\\}{\tab \begin{minipage}{14cm}#5\end{minipage}\\~\\}
+}
+%	 CV Text block
+\newcommand{\CVTextBlock}[1]{\tab {\large \begin{minipage}{18cm}#1\end{minipage}}\\~\\}
+
+
+% new cmd \cvitem
+% use \parbox to break lines inside boxes
+\newcommand{\cvitem}[1]{
+	\tab
+  \noindent
+  \makebox[1em][c]{\color{midnightblue}\faCircle}
+  \parbox[t]{0.75\linewidth}{#1}\par
+  \smallskip
+}
+
+
+
+
+% new cmd \cvskill
+\newcommand{\cvskill}[2]{
+  \noindent\hspace{0.2\linewidth}
+  \makebox[0.4\linewidth][l]{#1}
+  \makebox[0.3\linewidth][l]{
+    \small
+    \foreach \x in {1,...,5}{
+      {\ifnumgreater{\x}{#2}{\color{body!30}}{\color{emphcolor}}\faCircle}
+    }
+  }\par
+  \smallskip
+}
+
+\newcommand{\cvreferee}[6]{
+  {
+  \noindent\hspace{0.2\linewidth}
+  \makebox[0.4\linewidth][l]{
+    \href{#6}{\large{#1}}
+    \normalsize\hspace{2ex}\faMortarBoard~#2
+  }\par\smallskip
+  \noindent\hspace{0.2\linewidth}
+  \makebox[3ex][l]{\faInstitution}\makebox[0.6\linewidth][l]{#3}\par
+  \noindent\hspace{0.2\linewidth}
+  \makebox[3ex][l]{\faEnvelope}\makebox[0.6\linewidth][l]{\href{mailto:#4}{#4}}\par
+  \noindent\hspace{0.2\linewidth}
+  \makebox[3ex][l]{\faPhone}\makebox[0.6\linewidth][l]{#5}\par
+  \medskip
+  }
+}
+
+\newcommand{\cvpublication}[5]{
+  {
+	\textbf{#1}, {#2}.
+	\newblock Publication: {\em #3}, {#4}, {#5}.
+}
+}
+
+
+

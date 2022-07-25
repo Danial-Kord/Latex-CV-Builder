@@ -18,7 +18,9 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     "    twoside = false,\n" +
                     "]{article}\n" +
                     "\n" +
-                    "\\usepackage{curriculum-vitae}\n";
+                    "\\usepackage{curriculum-vitae}\n" +
+                    "\\setfooter{IAESTE 2022}" +
+                    "\n";
         Directory = "Template1";
     }
 
@@ -30,6 +32,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     protected void addSummary(String data) {
+        if(data == null)
+            return;
         addText(LatexExpressionBuilder.getLatex("cvSection","Summary"));
         addText(LatexExpressionBuilder.getLatex("CVTextBlock",data));
     }
@@ -45,7 +49,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
             {BSE in Duck Farming and Butchering - Talent Program}{Farmville, Earth}
             {\textbf{CGPA:} 2.7, magna cum laude}
         */
-
+        if(educations == null)
+            return;
         addText(LatexExpressionBuilder.getLatex("cvSection","Education"));
         for (int i=0;i<educations.length;i++){
             Education education = educations[i];
@@ -71,6 +76,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     protected void addCertificates(Certificate[] certificates) {
+        if(certificates == null)
+            return;
         //writing architecture is the same as education and experience
         addText("cvSection","Certificates");
         for (int i=0;i<certificates.length;i++){
@@ -81,6 +88,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     protected void addHonors(Honor[] honors) {
+        if(honors == null)
+            return;
         //writing architecture is the same as education and experience
         addText("cvSection","Honors & Awards");
         for (int i=0;i<honors.length;i++){
@@ -119,6 +128,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
             {Evaluation and Adaption of Duck Butchering Algorithms for Mobile Robots in Zero-gravity Environment}
          */
 
+        if(workExperiences == null)
+            return;
         addText(LatexExpressionBuilder.getLatex("cvSection","Work Experience"));
 
         for (int i=0;i<workExperiences.length;i++){
@@ -154,8 +165,9 @@ public class AcademicCVType1 extends LatexCVGenerator{
           {0123 456 789}
           {https://wildroosteruniversity/people/zhang-san}
          */
-
-        addText("cvSection","References ");
+        if(references == null)
+            return;
+        addText("cvSection","References");
         addText("\\smallskip"); //small gap
         for (int i=0;i<references.length;i++){
             Reference reference = references[i];
@@ -166,8 +178,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     protected void addPublication(Publication[] publications) {
-        if(publications == null)
-            return;
+
         /* Template as below
         \cvSection{Publications}
 	    \cvitem{
@@ -175,8 +186,9 @@ public class AcademicCVType1 extends LatexCVGenerator{
 		Conference}{Jun 2020}{pp. 10--18}
 		}
          */
-
-        addText("cvSection","Publications ");
+        if(publications == null)
+            return;
+        addText("cvSection","Publications");
         for (int i=0;i<publications.length;i++){
             Publication publication = publications[i];
             addText("cvitem",LatexExpressionBuilder.getLatex("cvpublication",
@@ -198,27 +210,17 @@ public class AcademicCVType1 extends LatexCVGenerator{
             setEmail(jsonReq.emailAddress);
             setMobile(jsonReq.phoneNumber);
 
-            if(jsonReq.github != null)
-                setGithub(jsonReq.github);
-            if(jsonReq.blog != null)
-                setBlog(jsonReq.blog);
-            if(jsonReq.linkedin != null)
-                setLinkedin(jsonReq.linkedin);
+            setGithub(jsonReq.github);
+            setBlog(jsonReq.blog);
+            setLinkedin(jsonReq.linkedin);
             setTitle();
-            if(jsonReq.summary != null)
-                addSummary(jsonReq.summary);
-            if(jsonReq.education != null)
-                addEducation(jsonReq.education);
-            if(jsonReq.workExperiences != null)
-                addWorkExperience(jsonReq.workExperiences);
-            if(jsonReq.languages != null)
-                addLanguages(jsonReq.languages);
-            if(jsonReq.certificates != null)
-                addCertificates(jsonReq.certificates);
-            if(jsonReq.honors != null)
-                addHonors(jsonReq.honors);
-            if(jsonReq.references != null)
-                addReferences(jsonReq.references);
+            addSummary(jsonReq.summary);
+            addEducation(jsonReq.education);
+            addWorkExperience(jsonReq.workExperiences);
+            addLanguages(jsonReq.languages);
+            addCertificates(jsonReq.certificates);
+            addHonors(jsonReq.honors);
+            addReferences(jsonReq.references);
             addPublication(jsonReq.publications);
             addText("\\end{document}");
 
