@@ -20,6 +20,7 @@ public abstract class LatexCVGenerator {
     protected abstract void addWorkExperience(WorkExperience[] workExperiences);
 
     protected abstract void addReferences(Reference[] references);
+    protected abstract void addPublication(Publication[] publications);
 
     protected abstract void addExperience(String data);
     protected abstract void addSummary(String data);
@@ -58,8 +59,10 @@ public abstract class LatexCVGenerator {
         finalText.append(data);
     }
 
-    protected void addText(String syntax,String... args){
-        finalText.append(LatexExpressionBuilder.getLatex(syntax,args));
+    protected String addText(String syntax,String... args){
+        String newCommand = LatexExpressionBuilder.getLatex(syntax,args);
+        finalText.append(newCommand);
+        return newCommand;
     }
 
 

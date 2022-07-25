@@ -155,12 +155,32 @@ public class AcademicCVType1 extends LatexCVGenerator{
           {https://wildroosteruniversity/people/zhang-san}
          */
 
-        addText("cvSection","Languages");
+        addText("cvSection","References ");
         addText("\\smallskip"); //small gap
         for (int i=0;i<references.length;i++){
             Reference reference = references[i];
             addText("cvreferee",reference.name,reference.jobTitle,reference.companyName,
                     reference.emailAddress,reference.phoneNumber,reference.emailAddress);
+        }
+    }
+
+    @Override
+    protected void addPublication(Publication[] publications) {
+        if(publications == null)
+            return;
+        /* Template as below
+        \cvSection{Publications}
+	    \cvitem{
+		\cvpublication{hnqiu}{San Zhang}{Proceedings of the 2020 Artificial Intelligence
+		Conference}{Jun 2020}{pp. 10--18}
+		}
+         */
+
+        addText("cvSection","Publications ");
+        for (int i=0;i<publications.length;i++){
+            Publication publication = publications[i];
+            addText("cvitem",LatexExpressionBuilder.getLatex("cvpublication",
+                    publication.title,publication.authors,publication.publication,publication.releaseDate,publication.ISBN));
         }
     }
 
@@ -199,6 +219,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
                 addHonors(jsonReq.honors);
             if(jsonReq.references != null)
                 addReferences(jsonReq.references);
+            addPublication(jsonReq.publications);
             addText("\\end{document}");
 
             //saving final data in the LaTex file
