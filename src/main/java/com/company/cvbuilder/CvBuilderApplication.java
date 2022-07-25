@@ -7,15 +7,37 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
+
 @SpringBootApplication
 @RestController
 public class CvBuilderApplication {
-
+    public static void Show_Results(Process p) throws IOException {
+        BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String output = "";
+        while ((output = output_reader.readLine()) != null) {
+            System.out.println(output);
+        }
+    }
     public static void main(String[] args) {
 //        AcademicCVType1 academicCVType1 = new AcademicCVType1();
 //        academicCVType1.generatePdfCV(null);
 //        FileManager.addData(FileManager.creatFile(),"{name}");
-        SpringApplication.run(CvBuilderApplication.class, args);
+
+
+        ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/c","cd \"resume2\" && dir && xelatex -jobname dd1 CV.tex"); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+        builder.redirectErrorStream(true);
+        Process p = null;
+        try {
+            p = builder.start();
+            CvBuilderApplication.Show_Results(p);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+//        SpringApplication.run(CvBuilderApplication.class, args);
     }
 
 
