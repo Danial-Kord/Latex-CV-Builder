@@ -274,7 +274,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     public File creatTexFile(JsonReq jsonReq) {
-        File file = FileManager.creatFile(Directory);
+        File file = FileManager.creatTexFile(Directory,jsonReq.emailAddress);
         if(file == null)
             return null;
         try {

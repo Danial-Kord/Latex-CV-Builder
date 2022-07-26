@@ -26,7 +26,7 @@ public class FileManager {
         else return null;
     }
 
-    public static File creatFile(String Directory){
+    public static File creatTexFile(String Directory){
         if(!Files.exists(Path.of(Directory))){
             try {
                 Files.createDirectory(Path.of(Directory));
@@ -41,6 +41,25 @@ public class FileManager {
         }
         return null;
     }
+
+    public static File creatTexFile(String Directory, String fileName){
+        if(!Files.exists(Path.of(Directory))){
+            try {
+                Files.createDirectory(Path.of(Directory));
+            } catch (IOException e) {
+                System.out.println("problem occurred when generating directory");
+            }
+        }
+        try {
+            File file = new File(Directory + "\\" + fileName+".tex");
+            file.createNewFile();
+            return file;
+        } catch (IOException e) {
+            System.out.println("problem occurred when generating file");
+        }
+        return null;
+    }
+
     //adds new data to existing file
     public static boolean addData(File file,String data){
 
@@ -54,6 +73,17 @@ public class FileManager {
             System.out.println("Problem occurred when appending data to file");
         }
         return false;
+    }
+
+    //removing useless files after compiling Tex file
+    public static void removeExtraFiles(String directory, String name){
+        try {
+            Files.deleteIfExists(Path.of(directory + "\\" + name+".aux"));
+            Files.deleteIfExists(Path.of(directory + "\\" + name+".out"));
+
+        } catch (IOException e) {
+            System.out.println("Problem with deleting extra files");
+        }
     }
 
 }

@@ -94,6 +94,7 @@ public abstract class LatexCVGenerator {
             return null;
         }
         File outputPDF = FileManager.getFile(Directory,outputName+".pdf");
+//        FileManager.removeExtraFiles(Directory,outputName);
         if (outputPDF != null)
             return outputPDF.getAbsolutePath();
         return null;
