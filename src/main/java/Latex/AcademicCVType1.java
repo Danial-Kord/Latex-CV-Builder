@@ -248,7 +248,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
             addText("question",qa.question);
             addText("answer",qa.answer);
         }
-        addText("\\end{itemize}");
+        addText("\\end{itemize}\n");
     }
 
     @Override
