@@ -115,7 +115,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
                     "\\textbf{Writing : }%s \\tab \\textbf{Speaking : }%s \\tab ",
                     language.listeningLevel,language.readingLevel,language.writingLevel,language.speakingLevel) + "\\\\");
         }
-        addText("\\end{tabular} \\\\~\\\\");
+        addText("\\end{tabular}\n \\\\~\\\\");
     }
 
     @Override
@@ -223,6 +223,8 @@ public class AcademicCVType1 extends LatexCVGenerator{
             Skill skill = skills[i];
             addText("cvskill",skill.skillName,String.valueOf(skill.level));
         }
+        addText("\\\\~\\\\");
+
     }
 
     @Override
