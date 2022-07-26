@@ -73,11 +73,15 @@ LaTex compiler should be installed on your device.<br />
    ```sh
    mvnw clean package
    ```
-3. Go to the created `target` folder and run the application with Java.
+3. Now a foldet with the name of `target` is created. Copy `CVModel1` folder to `target` and run the application using Java.
+   ```sh
+   java -jar CVBuilder-0.0.1-SNAPSHOT.jar
+   ```  
+4. Go to the created `target` folder and run the application with Java.
    ```sh
    java -jar CVBuilder-0.0.1-SNAPSHOT.jar
    ```
-4. Open Postman application and creat a GET request, in the URL part type `http://localhost:8080/pdfGenerator`.<br />
+5. Open Postman application and creat a GET request, in the URL part type `http://localhost:8080/pdfGenerator`.<br />
    Select `Body` chose `raw` option and use `JSON` instead of `Text` option. Finaly pasete the Json template below and click Send.
    ```json
    {
@@ -193,9 +197,9 @@ LaTex compiler should be installed on your device.<br />
     "answer": "My friend who had experience with IAESTE internship encouraged me to attened IAESTE exam."
      }]}
     ```
-5. After doing the last part you will receive a response declaring the place of you CV as Pdf file.
+6. After doing the last part you will receive a response declaring the place of you CV as Pdf file.
 
-6. Enjoy!
+7. Enjoy!
 
 <!-- USAGE EXAMPLES -->
 ## Use other templates
