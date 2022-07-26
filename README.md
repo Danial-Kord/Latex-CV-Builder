@@ -39,8 +39,8 @@
 
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
-Having a CV is required as it gives you a chance to show a prospective employer or professor the best of what you've got. LaTex is a fantastic typesetting program that a lot of people use these days for making an appropriate CV. However, making a CV is a time consuming action. <br />
-This application will generate the Tex commnads, compile it and finally give you the PDF output in an automated way; you only need to send a HTTP request to the application and add a Json data to the body of your request and the rest is with the application!  
+Having a CV is required as it gives you a chance to show a prospective employer or professor the best of what you've got. [LaTex](https://www.latex-project.org/) is a fantastic typesetting program that a lot of people use these days for making an appropriate CV. However, making a CV is a time consuming action. <br />
+This application will generate the Tex commnads, compile it and finally <b>generate PDF output in an automated way!</b><br />You only need to send a HTTP request to the application and add a Json data to the body of your request and the rest is with the application!  
  
 <div align="center">
   <img src="CVModel1/output.png" alt="Logo" width="434" height="609">
