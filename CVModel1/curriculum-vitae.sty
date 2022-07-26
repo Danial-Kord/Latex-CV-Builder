@@ -145,6 +145,23 @@
 	
 	{\textcolor{red}{\texttt{\Huge{\firstLetter#1@}\LARGE{\secondLetter#1@}} \hrulefill}}\\~\\
 }
+\newcommand{\cvSubSection}[1]{
+	\medskip
+	\tab
+	{\textcolor{red}{\texttt{\LARGE{#1}} \hrulefill}}\\~\\
+}
+
+
+\newcommand{\cvsection}[1] {
+  \medskip
+  \tab
+  {\Large\scshape\raggedright{\color{emphcolor}{#1}}\par}\medskip
+  \vspace{-\baselineskip}
+  {\color{lightblue}\hrulefill\linewidth{2pt} \par}
+  \smallskip
+}
+
+
 %	 CV Block with date/time
 \newcommand{\CVBlockWithTime}[5]{
 	\tab \texttt{\Large \textbf{#1}} \hfill \textbf{\large #2}\\
@@ -169,7 +186,7 @@
 \newcommand{\cvitem}[1]{
 	\tab
   \noindent
-  \makebox[1em][c]{\color{midnightblue}\faCircle}
+  \makebox[1em][c]{}
   \parbox[t]{0.75\linewidth}{#1}\par
   \smallskip
 }
@@ -213,6 +230,7 @@
 	\newblock Publication: {\em #3}, {#4}, {#5}.
 }
 }
+
 
 \newcommand{\QAcvSection}[1]{
 	

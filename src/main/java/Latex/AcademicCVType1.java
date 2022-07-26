@@ -79,7 +79,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
         if(certificates == null)
             return;
         //writing architecture is the same as education and experience
-        addText("cvSection","Certificates");
+        addText("cvSubSection","Certificates");
         for (int i=0;i<certificates.length;i++){
             Certificate certificate = certificates[i];
             addText("CVBlockWithTime",certificate.title,certificate.date,certificate.institute,"","");
@@ -106,7 +106,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 		     \texttt{\large Programming Language} & \textbf{Experienced:} Duckython \tab \textbf{Familiar:} D++ \cvContactSep Dash \cvContactSep DMake \cvContactSep Datex\\
 
          */
-        addText("cvSection","Languages");
+        addText("cvSubSection","Languages");
         addText("\\tab \\begin{tabular}{r p{0.7\\textwidth}}"); //change this number for more gaps
         for (int i=0;i<languages.length;i++){
             Language language = languages[i];
@@ -130,7 +130,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
         if(workExperiences == null)
             return;
-        addText("cvSection","Work Experience");
+        addText("cvSubSection","Work Experience");
 
         for (int i=0;i<workExperiences.length;i++){
             WorkExperience workExperience = workExperiences[i];
@@ -186,7 +186,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
          */
         if(projectExperiences == null)
             return;
-        addText("cvSection","Project Experience");
+        addText("cvSubSection","Project Experience");
 
         for (int i=0;i<projectExperiences.length;i++){
             ProjectExperience projectExperience = projectExperiences[i];
@@ -217,7 +217,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
          */
         if(skills == null)
             return;
-        addText("cvSection","Skills");
+        addText("cvSubSection","Skills");
         addText("\n");
         for (int i=0;i<skills.length;i++){
             Skill skill = skills[i];
@@ -291,10 +291,14 @@ public class AcademicCVType1 extends LatexCVGenerator{
             setTitle();
             addSummary(jsonReq.summary);
             addEducation(jsonReq.education);
+            if(jsonReq.workExperiences != null || jsonReq.projectExperiences != null)
+                addText("cvSection","Work Experiences \\& Projects");
             addWorkExperience(jsonReq.workExperiences);
             addProjectExperiences(jsonReq.projectExperiences);
-            addSkills(jsonReq.skills);
+            if(jsonReq.skills != null || jsonReq.languages != null || jsonReq.certificates!=null)
+                addText("cvSection","Languages, Skills \\& Certificates");
             addLanguages(jsonReq.languages);
+            addSkills(jsonReq.skills);
             addCertificates(jsonReq.certificates);
             addHonors(jsonReq.honors);
             addReferences(jsonReq.references);
