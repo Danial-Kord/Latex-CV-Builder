@@ -73,10 +73,7 @@ LaTex compiler should be installed on your device.<br />
    ```sh
    mvnw clean package
    ```
-3. Now a foldet with the name of `target` is created. Copy `CVModel1` folder to `target` and run the application using Java.
-   ```sh
-   java -jar CVBuilder-0.0.1-SNAPSHOT.jar
-   ```  
+3. Now a foldet with the name of `target` is created. Copy `CVModel1` folder to `target` folder.
 4. Go to the created `target` folder and run the application with Java.
    ```sh
    java -jar CVBuilder-0.0.1-SNAPSHOT.jar
