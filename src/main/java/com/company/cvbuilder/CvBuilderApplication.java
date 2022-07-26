@@ -1,13 +1,10 @@
 package com.company.cvbuilder;
 
-import Files.FileManager;
 import Latex.AcademicCVType1;
 import Requests.JsonReq;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.*;
 
 @SpringBootApplication
 @RestController
@@ -30,7 +27,7 @@ public class CvBuilderApplication {
 
     @RequestMapping("/pdfGenerator")
     @ResponseBody
-    public String doSomeThing(@RequestBody JsonReq input){
+    public String CvModel1(@RequestBody JsonReq input){
         AcademicCVType1 academicCVType1 = new AcademicCVType1();
         return academicCVType1.generatePdfCV(input);
 
