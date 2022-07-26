@@ -76,13 +76,13 @@ LaTex compiler should be installed on your device.<br />
    ```sh
    mvnw clean package
    ```
-3. Now a foldet with the name of `target` is created. Copy `CVModel1` folder to `target` folder.
-4. Go to the created `target` folder and run the application with Java.
+3. Now a folder with the name of `target` is created. Copy `CVModel1` folder to `target` folder.
+4. Go to the created `target` folder and run the application with the following command.
    ```sh
    java -jar CVBuilder-0.0.1-SNAPSHOT.jar
    ```
-5. Open Postman application and creat a GET request, in the URL part type `http://localhost:8080/pdfGenerator`.<br />
-   Select `Body` chose `raw` option and use `JSON` instead of `Text` option. Finaly pasete the Json template below and click Send.
+5. Open Postman application and create a GET request, in the URL part type `http://localhost:8080/pdfGenerator`.<br />
+   Select `Body` choose `raw` option and use `JSON` instead of `Text`. Finaly pasete the Json template below and click Send.
    ```json
    {
     "summary":"He is the Best!",
@@ -197,7 +197,7 @@ LaTex compiler should be installed on your device.<br />
     "answer": "My friend who had experience with IAESTE internship encouraged me to attened IAESTE exam."
      }]}
     ```
-6. After doing the last part you will receive a response declaring the place of you CV as Pdf file.
+6. After doing the last part you will receive a response declaring the place of your CV as Pdf file.
 
 7. Enjoy!
 
@@ -205,8 +205,8 @@ LaTex compiler should be installed on your device.<br />
 ## Use other CV templates
 
 1. Place your CV template requirements (all fonts and .sty files) in a folder in the root of the application besides `CVModel1`
-2. Creat a new Java Class by inheriting `LatexCVGenerator` class.
-3. Follow the same pattern like `AcademicCVType1` class.(exp: specify the Directory field with the name of the folder in sptep 1, add each section of your Tex file scheme in the overrided methods.
+2. Create a new Java Class by inheriting `LatexCVGenerator` class.
+3. Follow the same pattern like `AcademicCVType1` class.(exp: specify the Directory field with the name of the folder in step 1, add each section of your Tex file scheme in the overrided methods.
 4. Finally use your custom class in the PdfGenerator method at `CvBuilderApplication` class.
 
 
