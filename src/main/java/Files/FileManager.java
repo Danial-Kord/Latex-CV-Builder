@@ -78,6 +78,7 @@ public class FileManager {
     //removing useless files after compiling Tex file
     public static void removeExtraFiles(String directory, String name){
         try {
+            Files.deleteIfExists(Path.of(directory + "\\" + name+".tex"));
             Files.deleteIfExists(Path.of(directory + "\\" + name+".aux"));
             Files.deleteIfExists(Path.of(directory + "\\" + name+".out"));
 
