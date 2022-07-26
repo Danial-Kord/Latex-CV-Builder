@@ -202,7 +202,7 @@ LaTex compiler should be installed on your device.<br />
 7. Enjoy!
 
 <!-- USAGE EXAMPLES -->
-## Use other templates
+## Use other CV templates
 
 1. Place your CV template requirements (all fonts and .sty files) in a folder in the root of the application besides `CVModel1`
 2. Creat a new Java Class by inheriting `LatexCVGenerator` class.
