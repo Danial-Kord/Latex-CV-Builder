@@ -51,7 +51,7 @@ This application will generate the Tex commnads, compile it and finally <b>gener
 
 Follow these steps to run the program.
 
-### Prerequisites
+### prerequirements
 
 LaTex compiler should be installed on your device.<br />
 1. Install LaTex by following the instruction at [this link](https://www.latex-project.org/get/)
