@@ -62,6 +62,9 @@ LaTex compiler should be installed on your device.<br />
 
 
 3. Install [Maven](https://maven.apache.org/install.html).
+ ```sh
+ sudo apt install maven
+ ```
 
 4. For testing the application having [Postman](https://www.postman.com/downloads/) installed is recommended.
 
@@ -75,6 +78,10 @@ LaTex compiler should be installed on your device.<br />
 2. at the root of the application run the following command
    ```sh
    mvnw clean package
+   ```
+   or
+   ```sh
+   mvn clean package
    ```
 3. Now a folder with the name of `target` is created. Copy `CVModel1` folder to `target` folder.
 4. Go to the created `target` folder and run the application with the following command.
