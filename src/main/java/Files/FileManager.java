@@ -52,6 +52,7 @@ public class FileManager {
         }
         try {
             File file = new File(Directory + "\\" + fileName+".tex");
+            Files.deleteIfExists(file.toPath());
             file.createNewFile();
             return file;
         } catch (IOException e) {
