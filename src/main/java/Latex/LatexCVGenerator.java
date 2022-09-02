@@ -89,8 +89,8 @@ public abstract class LatexCVGenerator {
             builder = new ProcessBuilder("cmd.exe","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
 
         if(OSValidator.IS_UNIX)
-            builder = new ProcessBuilder("bash","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
-        
+            builder = new ProcessBuilder("bash","-c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+
 
         builder.redirectErrorStream(true);
         Process p = null;
@@ -113,7 +113,7 @@ public abstract class LatexCVGenerator {
         BufferedReader output_reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String output = "";
         while ((output = output_reader.readLine()) != null) {
-            System.out.println(output);
+            //System.out.println(output);
         }
     }
 
