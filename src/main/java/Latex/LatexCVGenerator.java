@@ -1,6 +1,7 @@
 package Latex;
 
 import Files.FileManager;
+import Files.OSValidator;
 import Requests.*;
 
 import java.io.*;
@@ -83,7 +84,14 @@ public abstract class LatexCVGenerator {
         String command = String.format("cd \"%s\" && dir && xelatex -jobname %s -interaction nonstopmode %s",
                 Directory,outputName,file.getName());
         System.out.println(command);
-        ProcessBuilder builder = new ProcessBuilder("cmd.exe","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+        ProcessBuilder builder = null;
+        if(OSValidator.IS_WINDOWS)
+            builder = new ProcessBuilder("cmd.exe","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+
+        if(OSValidator.IS_UNIX)
+            builder = new ProcessBuilder("bash","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+        
+
         builder.redirectErrorStream(true);
         Process p = null;
         try {
