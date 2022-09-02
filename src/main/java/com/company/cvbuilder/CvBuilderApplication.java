@@ -22,7 +22,7 @@ public class CvBuilderApplication implements WebServerFactoryCustomizer<Configur
         return String.format("Hello %s!", name);
     }
 
-    @RequestMapping("/pdfGenerator")
+    @RequestMapping("/pdf")
     @ResponseBody
     public String CvModel1(@RequestBody JsonReq input){
         AcademicCVType1 academicCVType1 = new AcademicCVType1();

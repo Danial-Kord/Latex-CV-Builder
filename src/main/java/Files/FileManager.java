@@ -18,9 +18,9 @@ public class FileManager {
     }
 
     public static File getFile(String directory, String fileName){
-        boolean exists = Files.exists(Path.of(directory + "\\" + fileName));
+        boolean exists = Files.exists(Path.of(directory + "/" + fileName));
         if(exists) {
-            File f = new File(directory + "\\" + fileName);
+            File f = new File(directory + "/" + fileName);
             return f;
         }
         else return null;
@@ -51,7 +51,7 @@ public class FileManager {
             }
         }
         try {
-            File file = new File(Directory + "\\" + fileName+".tex");
+            File file = new File(Directory + "/" + fileName+".tex");
             Files.deleteIfExists(file.toPath());
             file.createNewFile();
             return file;
@@ -79,9 +79,9 @@ public class FileManager {
     //removing useless files after compiling Tex file
     public static void removeExtraFiles(String directory, String name){
         try {
-            Files.deleteIfExists(Path.of(directory + "\\" + name+".tex"));
-            Files.deleteIfExists(Path.of(directory + "\\" + name+".aux"));
-            Files.deleteIfExists(Path.of(directory + "\\" + name+".out"));
+            Files.deleteIfExists(Path.of(directory + "/" + name+".tex"));
+            Files.deleteIfExists(Path.of(directory + "/" + name+".aux"));
+            Files.deleteIfExists(Path.of(directory + "/" + name+".out"));
 
         } catch (IOException e) {
             System.out.println("Problem with deleting extra files");
