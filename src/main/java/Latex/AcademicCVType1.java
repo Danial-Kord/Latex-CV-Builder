@@ -24,6 +24,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
         Directory = "CVModel1";
     }
 
+    public static String getPdfPath(String name){
+        return FileManager.getFile(Directory,name+".pdf").getAbsolutePath();
+
+    }
 
 
     @Override
@@ -106,14 +110,16 @@ public class AcademicCVType1 extends LatexCVGenerator{
 		     \texttt{\large Programming Language} & \textbf{Experienced:} Duckython \tab \textbf{Familiar:} D++ \cvContactSep Dash \cvContactSep DMake \cvContactSep Datex\\
 
          */
+        if(languages == null)
+            return;
         addText("cvSubSection","Languages");
         addText("\\tab \\begin{tabular}{r p{0.7\\textwidth}}"); //change this number for more gaps
         for (int i=0;i<languages.length;i++){
             Language language = languages[i];
-            addText(String.format("\\texttt{\\large %s} & ",language.languageName));
+            addText(String.format("\\texttt{\\large %s} & ",language.title));
             addText(String.format("\\textbf{Listening : }%s \\tab \\textbf{Reading : }%s \\tab " +
                     "\\textbf{Writing : }%s \\tab \\textbf{Speaking : }%s \\tab ",
-                    language.listeningLevel,language.readingLevel,language.writingLevel,language.speakingLevel) + "\\\\");
+                    language.listening,language.reading,language.writing,language.speaking) + "\\\\");
         }
         addText("\\end{tabular}\n \\\\~\\\\");
     }
@@ -221,7 +227,7 @@ public class AcademicCVType1 extends LatexCVGenerator{
         addText("\n");
         for (int i=0;i<skills.length;i++){
             Skill skill = skills[i];
-            addText("cvskill",skill.skillName,String.valueOf(skill.level));
+            addText("cvskill",skill.title,String.valueOf(skill.level));
         }
         addText("\\\\~\\\\");
 
@@ -276,27 +282,27 @@ public class AcademicCVType1 extends LatexCVGenerator{
 
     @Override
     public File creatTexFile(JsonReq jsonReq) {
-        File file = FileManager.creatTexFile(Directory,jsonReq.emailAddress);
+        File file = FileManager.creatTexFile(Directory,jsonReq.email);
         if(file == null)
             return null;
         try {
             //building LaTex data
             addText(headerData);
             addText("\\begin{document}\n");
-            setName(jsonReq.name,jsonReq.familyName);
-            setEmail(jsonReq.emailAddress);
-            setMobile(jsonReq.phoneNumber);
+            setName(jsonReq.fullname,"");
+            setEmail(jsonReq.email);
+            setMobile(jsonReq.phone);
             setLogo();
             setGithub(jsonReq.github);
             setBlog(jsonReq.blog);
             setLinkedin(jsonReq.linkedin);
             setTitle();
-            addSummary(jsonReq.summary);
+            addSummary(jsonReq.profile_summary);
             addEducation(jsonReq.education);
-            if(jsonReq.workExperiences != null || jsonReq.projectExperiences != null)
+            if(jsonReq.work_experiences != null || jsonReq.project_experiences != null)
                 addText("cvSection","Work Experiences \\& Projects");
-            addWorkExperience(jsonReq.workExperiences);
-            addProjectExperiences(jsonReq.projectExperiences);
+            addWorkExperience(jsonReq.work_experiences);
+            addProjectExperiences(jsonReq.project_experiences);
             if(jsonReq.skills != null || jsonReq.languages != null || jsonReq.certificates!=null)
                 addText("cvSection","Languages, Skills \\& Certificates");
             addLanguages(jsonReq.languages);
@@ -313,9 +319,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
             return file;
         }
         catch (Exception e){
-//            throw new RuntimeException(e);
             System.out.println("Tex file generator failed");
-            return null;
+
+            throw new RuntimeException(e);
+//            return null;
         }
 
     }

@@ -1,6 +1,6 @@
 package Requests;
 
 public class Skill {
-    public String skillName;
+    public String title;
     public int level;
 }

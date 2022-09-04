@@ -77,6 +77,11 @@ public abstract class LatexCVGenerator {
     }
 
 
+    public static String getPdfPath(String name){
+        return FileManager.getFile(Directory,name+".pdf").getAbsolutePath();
+
+    }
+
     //compile and returns pdf file path
     protected String compileTexFile(File file){
 
@@ -103,8 +108,12 @@ public abstract class LatexCVGenerator {
         }
         File outputPDF = FileManager.getFile(Directory,outputName+".pdf");
         FileManager.removeExtraFiles(Directory,outputName);
+
         if (outputPDF != null)
-            return outputPDF.getAbsolutePath();
+            return outputName;
+
+//        if (outputPDF != null)
+//            return outputPDF.getAbsolutePath();
         return null;
     }
 
@@ -118,6 +127,7 @@ public abstract class LatexCVGenerator {
     }
 
     protected abstract File creatTexFile(JsonReq jsonReq);
+
 
     public String generatePdfCV(JsonReq jsonReq){
         File texFile = creatTexFile(jsonReq);//creates tex file scheme and saves it to file

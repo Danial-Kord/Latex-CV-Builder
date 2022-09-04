@@ -1,18 +1,18 @@
 package Requests;
 
 public class JsonReq {
-    public String name;
-    public String familyName;
+    public String fullname;
     public String github;
     public String linkedin;
     public String blog;
-    public String emailAddress;
-    public String phoneNumber;
+    public String email;
+    public String gender;
+    public String phone;
     public String address;
-    public String summary;
+    public String profile_summary;
     public Education[] education;
-    public WorkExperience[] workExperiences;
-    public ProjectExperience[] projectExperiences;
+    public WorkExperience[] work_experiences;
+    public ProjectExperience[] project_experiences;
     public Language[] languages;
     public Skill[] skills;
     public Certificate[] certificates;
