@@ -18,7 +18,7 @@ public class LatexExpressionBuilder {
 
 
     private static String HandleSpecialCharacters(String input){
-        input = input.replaceAll("[^a-zA-Z0-9%&.()@$!?]", " ");
+        input = input.replaceAll("[^a-zA-Z0-9%&@$!?]", " ");
         input = input.replaceAll("&", "\\\\&");
         input = input.replaceAll("%", "\\\\%");
         return input;
