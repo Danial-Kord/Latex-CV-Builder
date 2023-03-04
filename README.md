@@ -92,117 +92,118 @@ LaTex compiler should be installed on your device.<br />
    Select `Body` choose `raw` option and use `JSON` instead of `Text`. Finaly pasete the Json template below and click Send.
    ```json
    {
-    "summary":"He is the Best!",
-    "name":"Danial",
-    "familyName":"Kordmodanlou",
-    "github":"github.com",
-    "linkedin":"linkedin.com",
-    "blog":"blog.com",
-    "phoneNumber":"+60136105176",
-    "emailAddress":"danial.kordmodanlou@gmail.com",
-    "education":[{
-    "institutionName": "Amirkabir University of Technology (AUT)",
-    "degree": "Bachelor",
-    "field": "Computer Engineering",
-    "GPA": 3.7,
-    "country": "Country",
-    "city": "City",
-    "entranceYear": "2017",
-    "graduateYear": "2022"
-    }],
-    "workExperiences":[{
-    "jobPosition": "Intern",
-    "company": "IAESTE",
-    "country": "Country",
-    "city": "City",
-    "startingYear": "2021",
-    "finishingYear": "2022"
+   "profile_summary":"He is the Best!",
+   "name":"Danial",
+   "familyName":"Kordmodanlou",
+   "fullname":"Danial Kordmodanlou",
+   "github":"github.com",
+   "linkedin":"linkedin.com",
+   "blog":"blog.com",
+   "phone":"+60136105176",
+   "email":"danial.kordmodanlou@gmail.com",
+   "education":[{
+   "institutionName": "Amirkabir University of Technology (AUT)",
+   "degree": "Bachelor",
+   "field": "Computer Engineering",
+   "GPA": 3.7,
+   "country": "Country",
+   "city": "City",
+   "entranceYear": "2017",
+   "graduateYear": "2022"
+   }],
+   "work_experiences":[{
+   "jobPosition": "Intern",
+   "company": "IAESTE",
+   "country": "Country",
+   "city": "City",
+   "startingYear": "2021",
+   "finishingYear": "2022"
+   },
+   {
+   "jobPosition": "Intern",
+   "company": "SEPANTA",
+   "country": "Country",
+   "city": "City",
+   "startingYear": "2019",
+   "finishingYear": "2020"}],
+   "project_experiences":[{
+   "title": "DigiHuman",
+   "projectFor": "Thesis project",
+   "country": "Country",
+   "city": "City",
+   "startingYear": "2021",
+   "finishingYear": "2022",
+   "linkURL": "Google.com",
+   "description": "My Thesis project. A computer vision based project using Pose estimation methods for animation 3D characters." 
+   },
+   {
+   "title": "DigiHuman",
+   "projectFor": "Thesis project",
+   "country": "Country",
+   "city": "City",
+   "startingYear": "2021",
+   "finishingYear": "2022",
+   "linkURL": "Google.com",
+   "description": "My Thesis project. A computer vision based project using Pose estimation methods for animation 3D characters."
+   }],
+   "languages":[{
+    "title": "English",
+    "reading": 3,
+    "writing": 5,
+    "speaking": 2,
+    "listening": 1
     },
     {
-    "jobPosition": "Intern",
-    "company": "SEPANTA",
-    "country": "Country",
-    "city": "City",
-    "startingYear": "2019",
-    "finishingYear": "2020"}],
-    "projectExperiences":[{
-    "title": "DigiHuman",
-    "projectFor": "Thesis project",
-    "country": "Country",
-    "city": "City",
-    "startingYear": "2021",
-    "finishingYear": "2022",
-    "linkURL": "Google.com",
-    "description": "My Thesis project. A computer vision based project using Pose estimation methods for animation 3D characters." 
-    },
-    {
-    "title": "DigiHuman",
-    "projectFor": "Thesis project",
-    "country": "Country",
-    "city": "City",
-    "startingYear": "2021",
-    "finishingYear": "2022",
-    "linkURL": "Google.com",
-    "description": "My Thesis project. A computer vision based project using Pose estimation methods for animation 3D characters."
+    "title": "Persian",
+    "reading": 3,
+    "writing": 5,
+    "speaking": 2,
+    "listening": 1
     }],
-    "languages":[{
-    "languageName": "English",
-    "readingLevel": 3,
-    "writingLevel": 5,
-    "speakingLevel": 2,
-    "listeningLevel": 1
-    },
-    {
-    "languageName": "Persian",
-    "readingLevel": 5,
-    "writingLevel": 5,
-    "speakingLevel": 2,
-    "listeningLevel": 1
-    }],
-    "certificates":[{
-    "title": "Coursera AI Course",
-    "institute": "General Adverserial Networks (GANs)",
-    "date": "2021" }],
-    "publications":[{
-    "title": "My Thesis",
-    "releaseDate": "Jun 2020",
-    "authors": "Danial k.",
-    "publication": "Proceedings of the 2020 Artificial Intelligence Conference",
-    "ISBN": "pp. 10--18" 
-    }],
-    "honors":[{
-    "title": "Country RoboCup Competetion",
-    "description": "Worked on Open Weight football-playing robots and became 4th amongst 32 competitors.",
-    "date": "2015"
-    }],
-    "skills":[{
-    "skillName": "C#",
-    "level": 2
-    },
-    {
-    "skillName": "Java",
-    "level": 5
-    }],
-    "references":[{
-    "name": "Dr. Who",
-    "jobTitle": "Professor",
-    "companyName": "Amirkabir University of Technology (AUT)",
-    "phoneNumber":"+981234567",
-    "emailAddress":"someone@gmail.com" 
-    },
-    {
-    "name": "Dr. Who",
-    "jobTitle": "Professor",
-    "companyName": "Amirkabir University of Technology (AUT)",
-    "phoneNumber":"+981234567",
-    "emailAddress":"some@gmail.com"}],
-    "QAs":[{
-    "question": "Why did you chose IAESTE?",
-    "answer": "Cause I have big dreams!"}
-    ,{
-    "question": "How did you get familiar with IAESTE?",
-    "answer": "My friend who had experience with IAESTE internship encouraged me to attened IAESTE exam."
-     }]}
+   "certificates":[{
+   "title": "Coursera AI Course",
+   "institute": "General Adverserial Networks (GANs)",
+   "date": "2021" }],
+   "publications":[{
+   "title": "My Thesis",
+   "releaseDate": "Jun 2020",
+   "authors": "Danial k.",
+   "publication": "Proceedings of the 2020 Artificial Intelligence Conference",
+   "ISBN": "pp. 10--18" 
+   }],
+   "honors":[{
+   "title": "Country RoboCup Competetion",
+   "description": "Worked on Open Weight football-playing robots and became 4th amongst 32 competitors.",
+   "date": "2015"
+   }],
+   "skills":[{
+   "title": "C#",
+   "level": 2
+   },
+   {
+   "title": "Java",
+   "level": 5
+   }],
+   "references":[{
+   "name": "Dr. Who",
+   "jobTitle": "Professor",
+   "companyName": "Amirkabir University of Technology (AUT)",
+   "phoneNumber":"+981234567",
+   "emailAddress":"someone@gmail.com" 
+   },
+   {
+   "name": "Dr. Who",
+   "jobTitle": "Professor",
+   "companyName": "Amirkabir University of Technology (AUT)",
+   "phoneNumber":"+981234567",
+   "emailAddress":"some@gmail.com"}],
+   "QAs":[{
+   "question": "Why did you chose IAESTE?",
+   "answer": "Cause I have big dreams!"}
+   ,{
+   "question": "How did you get familiar with IAESTE?",
+   "answer": "My friend who had experience with IAESTE internship encouraged me to attened IAESTE exam."
+   }]}
     ```
 6. After doing the last part you will receive a response declaring the place of your CV as Pdf file.
 

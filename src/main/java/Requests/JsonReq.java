@@ -1,5 +1,8 @@
 package Requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonReq {
     public String fullname;
     public String github;
