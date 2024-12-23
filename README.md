@@ -71,10 +71,7 @@ LaTex compiler should be installed on your device.<br />
 ### Usage
 
 
-1. Clone the repository
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
+1. Clone this repository
 2. at the root of the application run the following command
    ```sh
    mvnw clean package
