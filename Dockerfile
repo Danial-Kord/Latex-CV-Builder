@@ -13,8 +13,16 @@ RUN mvn clean package -DskipTests
 # Second stage: runtime environment with JDK and TeX Live
 FROM alpine:3.15
 
-# Install OpenJDK and TeX Live (minimal installation)
-RUN apk add --no-cache openjdk11-jre texlive-xetex fontconfig
+# Install OpenJDK and complete TeX Live installation
+RUN apk add --no-cache \
+    openjdk11-jre \
+    texlive-full \
+    texmf-dist-latexextra \
+    texmf-dist-fontsextra \
+    texmf-dist-pictures \
+    texmf-dist-science \
+    fontconfig \
+    && fc-cache -f -v
 
 # Set the working directory in the container
 WORKDIR /app
@@ -28,11 +36,9 @@ COPY CVModel1 ./CVModel1
 # Create TempFiles directory
 RUN mkdir -p ./TempFiles
 
-# Copy CVModel1 to TempFiles as mentioned in the README
-RUN cp -r ./CVModel1/* ./TempFiles/
 
-# Expose port 8084 (the port specified in CvBuilderApplication.java)
-EXPOSE 8084
+# Expose port 2005 (the port specified in CvBuilderApplication.java)
+EXPOSE 2005
 
 # Command to run the application
 CMD ["java", "-jar", "CVBuilder-0.0.1-SNAPSHOT.jar"]

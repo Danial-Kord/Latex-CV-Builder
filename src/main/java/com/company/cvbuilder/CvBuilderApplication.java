@@ -82,6 +82,6 @@ public class CvBuilderApplication implements WebServerFactoryCustomizer<Configur
     //Change server port here
     @Override
     public void customize(ConfigurableServletWebServerFactory factory) {
-        factory.setPort(8084);
+        factory.setPort(2005);
     }
 }
