@@ -84,55 +84,36 @@ public abstract class LatexCVGenerator {
 
     //compile and returns pdf file path
     protected String compileTexFile(File file){
+
         String outputName = FileManager.getFileName(file);
-        String command;
-        
-        if(OSValidator.IS_WINDOWS) {
-            command = String.format("cd \"%s\" && dir && xelatex -jobname %s -interaction nonstopmode %s",
-                    Directory, outputName, file.getName());
-        } else {
-            // For Docker/Linux environment
-            command = String.format("cd %s && xelatex -jobname %s -interaction nonstopmode %s",
-                    Directory, outputName, file.getName());
-        }
-        
-        System.out.println("Compilation command: " + command);
+        String command = String.format("cd \"%s\" && dir && xelatex -jobname %s -interaction nonstopmode %s",
+                Directory,outputName,file.getName());
+        System.out.println(command);
         ProcessBuilder builder = null;
-        
-        if(OSValidator.IS_WINDOWS) {
-            builder = new ProcessBuilder("cmd.exe", "/c", command);
-        } else {
-            builder = new ProcessBuilder("sh", "-c", command);
-        }
+        if(OSValidator.IS_WINDOWS)
+            builder = new ProcessBuilder("cmd.exe","/c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+
+        if(OSValidator.IS_UNIX)
+            builder = new ProcessBuilder("bash","-c", command); //TODO add rubber: https://tex.stackexchange.com/questions/24785/deleting-external-auxiliary-files
+
 
         builder.redirectErrorStream(true);
         Process p = null;
         try {
             p = builder.start();
-            // Wait for the process to complete and get the exit code
-            int exitCode = p.waitFor();
-            System.out.println("Compilation exit code: " + exitCode);
-            
-            // Show compiler results
             showCompilerResults(p);
-            
-            if (exitCode != 0) {
-                System.out.println("Compilation failed with exit code: " + exitCode);
-                return null;
-            }
-        } catch (IOException | InterruptedException e) {
-            System.out.println(String.format("Compilation failed\nfile: %s\nError: %s", 
-                file.getName(), e.getMessage()));
+        } catch (IOException e) {
+            System.out.println(String.format("Compilation failed\nfile: %s, ",file.getName()));
             return null;
         }
-        
-        File outputPDF = FileManager.getFile(Directory, outputName + ".pdf");
-        if (outputPDF != null && outputPDF.exists()) {
-            FileManager.removeExtraFiles(Directory, outputName);
+        File outputPDF = FileManager.getFile(Directory,outputName+".pdf");
+        FileManager.removeExtraFiles(Directory,outputName);
+
+        if (outputPDF != null)
             return outputName;
-        }
-        
-        System.out.println("PDF file not found after compilation");
+
+//        if (outputPDF != null)
+//            return outputPDF.getAbsolutePath();
         return null;
     }
 

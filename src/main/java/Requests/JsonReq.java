@@ -15,7 +15,7 @@ public class JsonReq {
     public String profile_summary;
     public Education[] education;
     public WorkExperience[] work_experiences;
-    public ProjectExperience[] project_experiences;
+    public ProjectExperience[] projects;
     public Language[] languages;
     public Skill[] skills;
     public Certificate[] certificates;

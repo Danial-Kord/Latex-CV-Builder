@@ -299,10 +299,10 @@ public class AcademicCVType1 extends LatexCVGenerator{
             setTitle();
             addSummary(jsonReq.profile_summary);
             addEducation(jsonReq.education);
-            if(jsonReq.work_experiences != null || jsonReq.project_experiences != null)
+            if(jsonReq.work_experiences != null || jsonReq.projects != null)
                 addText("cvSection","Work Experiences \\& Projects");
             addWorkExperience(jsonReq.work_experiences);
-            addProjectExperiences(jsonReq.project_experiences);
+            addProjectExperiences(jsonReq.projects);
             if(jsonReq.skills != null || jsonReq.languages != null || jsonReq.certificates!=null)
                 addText("cvSection","Languages, Skills \\& Certificates");
             addLanguages(jsonReq.languages);

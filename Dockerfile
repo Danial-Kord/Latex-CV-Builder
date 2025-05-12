@@ -25,20 +25,28 @@ RUN apk add --no-cache \
     fontconfig \
     && fc-cache -f -v
 
-# Set the working directory in the container
+# Create the main application directory
 WORKDIR /app
 
+# Create necessary directories
+RUN mkdir -p /app/CVModel1 /app/TempFiles
+
 # Copy the built jar from the build stage
-COPY --from=build /app/target/CVBuilder-0.0.1-SNAPSHOT.jar .
+COPY --from=build /app/target/CVBuilder-0.0.1-SNAPSHOT.jar /app/
 
-# Copy the CVModel1 directory
-COPY CVModel1 ./CVModel1
+# Copy the CVModel1 directory with all its contents
+COPY CVModel1/ /app/CVModel1/
 
-# Create TempFiles directory
-RUN mkdir -p ./TempFiles
+# Set proper permissions and ensure directories are writable
+RUN chmod -R 755 /app/CVModel1 && \
+    chmod 755 /app/CVBuilder-0.0.1-SNAPSHOT.jar && \
+    chmod -R 777 /app/TempFiles
 
-# Copy CVModel1 to TempFiles
-RUN cp -r ./CVModel1/* ./TempFiles/
+# Create a non-root user and switch to it
+RUN adduser -D -h /app appuser && \
+    chown -R appuser:appuser /app
+
+USER appuser
 
 # Expose port 2005 (the port specified in CvBuilderApplication.java)
 EXPOSE 2005
