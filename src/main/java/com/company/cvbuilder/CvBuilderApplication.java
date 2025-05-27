@@ -33,11 +33,11 @@ public class CvBuilderApplication implements WebServerFactoryCustomizer<Configur
 
     @CrossOrigin
     @RequestMapping("/pdf")
-    @ResponseBody
-    public String CvModel1(@RequestBody JsonReq input){
+    // @ResponseBody
+    public ResponseEntity CvModel1(@RequestBody JsonReq input){
         AcademicCVType1 academicCVType1 = new AcademicCVType1();
-        return academicCVType1.generatePdfCV(input);
-
+        String name = academicCVType1.generatePdfCV(input);
+        return CvModel1(name);
     }
     @CrossOrigin
     @RequestMapping(path="/pdf/{name}")
